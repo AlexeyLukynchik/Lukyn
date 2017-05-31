@@ -1,13 +1,16 @@
 package com.company.dataModul;
 
 /**
- * Created by Алексей on 12.03.2017.
+ * Created by Andrei on 12.03.2017.
+ * Class that creates an area for the state
  */
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Area extends java.awt.geom.Area {
+    /** Storing areas for staff
+     */
     public List<Point2D.Double> points;
 
     public Area(){

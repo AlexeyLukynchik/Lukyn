@@ -1,16 +1,29 @@
 package com.company.dataModul;
 
 /**
- * Created by Алексей on 12.03.2017.
+ * Created by Andrei on 12.03.2017.
  */
 import java.util.Date;
 
 /**
- * Created by Алексей on 01.03.2017.
+ * Created by Andrei on 01.03.2017.
+ * Essence for tweets
+ *
  */
 public class Tweet {
+
     public  class GeoCord
     {
+        /**
+         *
+         * inner class for coordinates
+
+         * @return
+         */
+        /**
+         * for latitude
+         * @return
+         */
         public Double getLatitude() {
             return latitude;
         }
@@ -21,6 +34,10 @@ public class Tweet {
 
         private Double latitude ;
 
+        /**
+         * for longitude
+         * @return
+         */
         public Double getLongitude() {
             return longitude;
         }
@@ -56,6 +73,9 @@ public class Tweet {
         this.date = date;
     }
 
+    /**
+     * date of tweet
+     */
     private Date date ;
 
     public String getText() {
@@ -66,6 +86,9 @@ public class Tweet {
         this.text = text;
     }
 
+    /**
+     *text of tweet
+     */
     private     String text;
 
    public Tweet(Date date1,  String text1){

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 
 /**
- * Created by Алексей on 26.03.2017.
+ * Created by Andrei on 26.03.2017.
  */
 public interface IParse<T> {
 

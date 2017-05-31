@@ -7,9 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Алексей on 03.04.2017.
+ * Created by Andrei on 03.04.2017.
+ * Determine all the tweets containing the specified hashtag
  */
+
+
 public class ReportOne implements IReport<List<Tweet>> {
+    /**
+     * Override method for searching tweets
+     * @param ra Class object containing tweets, states, emotional weight
+
+
+     * @param str Array containing the required data
+
+     *
+     * @return Tweet with hashtag
+     */
+
 
     @Override
     public List<Tweet> report(ReportAnalyzer ra, String[] str) {
@@ -26,6 +40,9 @@ public class ReportOne implements IReport<List<Tweet>> {
 
 
         }
+
+
+
         return hash;
     }
 }

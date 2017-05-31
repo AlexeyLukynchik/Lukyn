@@ -1,7 +1,8 @@
 package com.company.dataModul;
 
 /**
- * Created by Алексей on 12.03.2017.
+ * Created by Andrei on 12.03.2017.
+ * Essence for sentiment
  */public class Sentiment {
 
     public String getValue() {
@@ -11,7 +12,7 @@ package com.company.dataModul;
     public void setValue(String value) {
         this.value = value;
     }
-
+   /** value of sentiment */
     private String value;
 
     public Float getWeight() {
@@ -21,7 +22,7 @@ package com.company.dataModul;
     public void setWeight(Float weight) {
         this.weight = weight;
     }
-
+/** weight of sentiment */
     private Float weight ;
 
    public Sentiment(String value1, Float weight1){

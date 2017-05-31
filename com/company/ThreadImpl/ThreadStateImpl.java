@@ -1,34 +1,49 @@
-package com.company.parseImpl;
+package com.company.ThreadImpl;
 
 import com.company.dataModul.Area;
-import com.company.dataModul.State;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Andrei on 27.03.2017.
+ * Created by Andrei on 01.05.2017.
  */
-public class StateParseImpl implements IParse<List<State>> {
+public class ThreadStateImpl extends Thread {
 
+public static List<com.company.dataModul.State> st;
+    public String getStr() {
+        return str;
+    }
+
+    public void setStr(String str) {
+        this.str = str;
+    }
+public ThreadStateImpl(String s){
+
+    str = s;
+}
+    private String str;
     @Override
-    public List<State> parse(String str) {
+    public void run() {
+        ThreadStateImpl.parse(getStr());
+    }
+    public static void parse(String str) {
 
-        List<State> listState = new ArrayList<>();
+        List<com.company.dataModul.State> listState = new ArrayList<>();
         String[] array = str.split(", \"");
         Pattern nameState = Pattern.compile("[A-Z]{2}");
-        State state = null;
+        com.company.dataModul.State state = null;
         for (int i = 0; i < array.length; i++) {
             Matcher matcher1 = nameState.matcher(array[i]);
             matcher1.find();
             // State state = getState(matcher1.group(),array[i]);
 
 
-            state = new State(matcher1.group());
+            state = new com.company.dataModul.State(matcher1.group());
             Pattern coordinate = Pattern.compile("\\-?[0-9]+\\.[0-9]+");
             String[] array2 = array[i].split("\\]\\]");
             for (int j = 0; j < array2.length; j++) {
@@ -52,8 +67,6 @@ public class StateParseImpl implements IParse<List<State>> {
             }
 
         }
-        return listState;
+        ThreadStateImpl.st = listState;
     }
-
 }
-

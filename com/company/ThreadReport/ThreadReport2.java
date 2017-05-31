@@ -1,4 +1,4 @@
-package com.company.report;
+package com.company.ThreadReport;
 
 import com.company.analyzer.ReportAnalyzer;
 
@@ -6,23 +6,38 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
- * Created by Andrei on 03.04.2017.
- * Determine the total emotional weight of tweets at a given time interval. (If the emotional weight of the word is unknown, consider it equal to 0)
+ * Created by Andrei on 03.05.2017.
  */
+public class ThreadReport2 extends Thread {
 
+   public static List<Double> ans;
+    public ReportAnalyzer ra;
+    private final CountDownLatch latch;
+   public String[] str;
+    public  ThreadReport2(CountDownLatch l, ReportAnalyzer r,String[] s){
 
-public class ReportTwo implements IReport<List<Double>> {
-    /**
-     * An overridden method for finding the sum
-     * @param ra Class object containing tweets, states, emotional weight
-     * @param str Array containing the required data
-     * @return Total emotional weight of tweets
-     * @throws Exception
-     */
+        latch =l;
+        ra = r;
+        str = s;
+    }
     @Override
-    public List<Double> report(ReportAnalyzer ra, String[] str) throws Exception {
+    public void run() {
+        try {
+            ThreadReport2.report(ra,str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        latch.countDown();
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void report(ReportAnalyzer ra, String[] str) throws Exception {
 
         String y = str[0];
 
@@ -49,21 +64,21 @@ public class ReportTwo implements IReport<List<Double>> {
             ;
 
 
-    try {
+            try {
                 if (startTime.before(ra.tw.get(i).getDate()) && finishTime.after(ra.tw.get(i).getDate())) {
 
                     for (int ii = 0; ii < ra.sent.size(); ii++) {
-                       // zap = ra.sent.get(ii).getValue().toLowerCase().concat(zap);
+                        // zap = ra.sent.get(ii).getValue().toLowerCase().concat(zap);
                         for (int j = 0; j < temp.length; j++)
                             if(ra.sent.get(ii).getValue().toLowerCase().compareTo(temp[j]) == 0)
                             //if (temp[j] == ra.sent.get(ii).getValue().toLowerCase())
-                                 {
+                            {
                                 emotionalWeight = emotionalWeight + ra.sent.get(ii).getWeight();
                                 if (ra.sent.get(ii).getWeight() == null) {
 
                                     emotionalWeight = emotionalWeight + 0;
                                 } //else {
-                                    //emotionalWeight = emotionalWeight + ra.sent.get(ii).getWeight();
+                                //emotionalWeight = emotionalWeight + ra.sent.get(ii).getWeight();
                                 //}
 
                             }
@@ -77,8 +92,7 @@ public class ReportTwo implements IReport<List<Double>> {
         System.out.print(emotionalWeight);
         answer.add(emotionalWeight);
 
-        return answer;
+        ans = answer;
     }
 
 }
-

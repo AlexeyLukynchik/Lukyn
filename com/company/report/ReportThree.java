@@ -4,15 +4,27 @@ import com.company.analyzer.ReportAnalyzer;
 import com.company.dataModul.State;
 
 import java.awt.geom.Point2D;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * Created by Алексей on 03.04.2017.
+ * Created by Andrei on 03.04.2017.
+ *
+ Determine the state from which the greatest number of tweets were published in a given period of time.
  */
 public class ReportThree implements IReport<List<String>> {
+    /**
+     *An override method that returns the most popular site
+
+     * @param ra Class object containing tweets, states, emotional weight
+     * @param str Array containing the required data
+     * @return The most popular state
+     * @throws Exception
+     */
     @Override
     public List<String> report(ReportAnalyzer ra, String[] str) throws Exception {
         List<String> answer = new ArrayList<>();
@@ -88,10 +100,16 @@ public class ReportThree implements IReport<List<String>> {
         });
         for (Entry<String,Integer> t : entries)
         {
-            System.out.println("key/value: " + t.getKey() + "/" + t.getValue());
+            System.out.println("state " + t.getKey() );
+
         }
+        BufferedWriter w = new BufferedWriter(new FileWriter(".//report3.txt"));
+        for (Entry<String,Integer> t : entries)
+        {
+            w.write(    + t.getValue() +" = "  + t.getKey()    ) ;
 
-
+        }
+w.close();
         //TreeMap<String,Integer> tm = new TreeMap<>(hashMap);
        // Integer[] val = new Integer[hashMap.size()];
         //int t = 0;
@@ -101,6 +119,7 @@ public class ReportThree implements IReport<List<String>> {
   //      }
     //     Arrays.sort(val);
       //  System.out.print(val[hashMap.size()-1]);
+
         return answer;
     }
 }
